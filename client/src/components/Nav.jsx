@@ -34,7 +34,7 @@ export default function Nav() {
       <div className="flex justify-between items-center px-5 py-1">
         <div className="">
           <Link to="/">
-            <h1 className="text-2xl font-bold">AcompX</h1>
+            <h1 className="text-2xl font-bold">Blog</h1>
           </Link>
         </div>
         <div className="">
