@@ -16,7 +16,7 @@ export default function DetailsPost() {
   const handleDataPost = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/post/details?postId=${postId.id}`,
+        `https://blog-e1jn.onrender.com/api/v1/post/details?postId=${postId.id}`,
         {
           method: "GET",
           headers: {

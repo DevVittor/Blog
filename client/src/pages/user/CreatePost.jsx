@@ -22,7 +22,7 @@ export default function CreatePost() {
     event.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:3000/api/v1/post/create?userId=6740a4862bf983d7e1c4b378",
+        "https://blog-e1jn.onrender.com/api/v1/post/create?userId=6740a4862bf983d7e1c4b378",
         {
           method: "POST",
           headers: {

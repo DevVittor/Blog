@@ -8,7 +8,7 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
 
   const allPost = async () => {
-    const response = await fetch("http://localhost:3000/api/v1/post/all");
+    const response = await fetch("https://blog-e1jn.onrender.com/api/v1/post/all");
     if (response.ok) {
       const convertJson = await response.json();
       setPosts(convertJson.list);

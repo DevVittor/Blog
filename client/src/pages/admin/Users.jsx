@@ -11,7 +11,7 @@ export default function Users() {
   const handleUsers = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/v1/user/list?userId=673e15380ce10815165584a2",
+        "https://blog-e1jn.onrender.com/api/v1/user/list?userId=673e15380ce10815165584a2",
         {
           method: "GET",
           headers: {
