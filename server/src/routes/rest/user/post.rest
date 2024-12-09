@@ -1,0 +1,31 @@
+#### Exibe para conta do tipo admin todos os posts
+
+GET http://localhost:3000/api/v1/post/all
+
+#### Detalhes do Post
+
+GET http://localhost:3000/api/v1/post/details?postId=6756df947a22adc9627728c8
+
+#### Cria um novo post
+
+POST http://localhost:3000/api/v1/post/create?userId=6740a4862bf983d7e1c4b378
+Content-Type: application/json
+
+{
+  "title":"Estou apenas criando um post bem simplesmente legal",
+  "content": "Vamos falar alguma coisa para colocar no banco de dados e testar.",
+  "categories": ["tecnologia","jogos"]
+}
+
+####
+
+PATCH http://localhost:3000/api/v1/post/alter/title?userId=6740a4862bf983d7e1c4b378&postId=6756dc247a22adc9627728be
+Content-Type: application/json
+
+{
+  "newTitle": "Alterei um post da melhor maneira possível"
+}
+
+####
+
+DELETE http://localhost:3000/api/v1/post/delete?userId=673d6902bc64b674ade2c844&postId=673d695e4ec1ca318e7d64d7

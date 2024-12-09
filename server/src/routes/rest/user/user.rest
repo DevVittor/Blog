@@ -1,0 +1,48 @@
+#### Lista de todos os usuários
+
+GET http://localhost:3000/api/v1/user/list?userId=673e15380ce10815165584a2
+
+#### Mostra detalhes do usuário
+
+GET http://localhost:3000/api/v1/user/details?userId=673ab32198d02e978c93d1de
+
+#### Altera o email do usuário
+
+PATCH http://localhost:3000/api/v1/user/alter/email?userId=673cbd756d894c7890ec3f32
+Content-Type: application/json
+
+{
+  "email": "carlos@gmail.com",
+  "newEmail": "serra@gmail.com"
+}
+
+#### Altera a senha do usuário
+
+PATCH http://localhost:3000/api/v1/user/alter/password?userId=673cbd756d894c7890ec3f32
+Content-Type: application/json
+
+{
+  "password": "Vittor123",
+  "newPassword": "Vittor"
+}
+
+#### Cadastra um novo usuário
+
+POST http://localhost:3000/api/v1/user/register
+Content-Type: application/json
+
+{
+  "username":"Vittor",
+  "email":"carlos@gmail.com",
+  "password": "Vittor123"
+}
+
+#### Faz login da conta do usuário
+
+POST http://localhost:3000/api/v1/user/login
+Content-Type: application/json
+
+{
+  "email": "carlos@gmail.com",
+  "password": "Vittor123"
+}

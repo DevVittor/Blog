@@ -1,0 +1,27 @@
+{
+  "name": "blog",
+  "description": "API RESTful para gerenciar funcionalidades essenciais de um blog, como CRUD de posts e comentários, autenticação JWT, e controle de acesso baseado em papéis. Desenvolvida com Node.js, Express e MongoDB, segue princípios RESTful para escalabilidade, modularidade e fácil integração com aplicações front-end.",
+  "version": "1.0.0",
+  "main": "./src/http/server.js",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch ./",
+    "start": "node --watch ./"
+  },
+  "dependencies": {
+    "@tinyhttp/cookie-parser": "^2.0.6",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.5"
+  }
+}
