@@ -37,7 +37,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="flex justify-start items-center flex-col gap-3 px-3 pb-3">
-          <div className="columns-4 flex-wrap gap-2">
+          <div className="md:columns-4 columns-1 flex-wrap gap-2">
             {posts &&
               posts.map((item) => (
                 <Link to={`/post/${item._id}`} key={item._id}>

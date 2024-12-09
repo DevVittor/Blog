@@ -31,7 +31,7 @@ export default function Nav() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-zinc-200">
-      <div className="flex justify-between items-center px-5 py-1">
+      <div className="flex justify-between items-center flex-wrap gap-2 md:px-5 md:py-1 p-2">
         <div className="">
           <Link to="/">
             <h1 className="text-2xl font-bold">Blog</h1>
