@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-
+import { jwtDecode } from "jwt-decode";
 export default function CreatePost() {
+  const [userId, setUserId] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     categories: [],
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decode = jwtDecode(token);
+      const decodeId = decode._id;
+      if (decodeId) {
+        setUserId(decodeId);
+      }
+    }
+  }, [userId]);
 
   console.log(formData);
 
@@ -22,7 +34,7 @@ export default function CreatePost() {
     event.preventDefault();
     try {
       const response = await fetch(
-        "https://blog-e1jn.onrender.com/api/v1/post/create?userId=6740a4862bf983d7e1c4b378",
+        `https://blog-e1jn.onrender.com/api/v1/post/create?userId=${userId}`,
         {
           method: "POST",
           headers: {
