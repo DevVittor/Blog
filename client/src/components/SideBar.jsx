@@ -1,4 +1,3 @@
-import { FaInstagram, FaTelegram, FaSquareXTwitter } from "react-icons/fa6";
 export default function SideBar() {
   return (
     <footer>
