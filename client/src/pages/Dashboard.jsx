@@ -13,6 +13,8 @@ import { BsQuestionLg } from "react-icons/bs";
 import CreatePost from "./user/CreatePost";
 import Found from "./Found";
 import { useState } from "react";
+import Settings from "../components/Settings";
+import HelpCenter from "../components/HelpCenter";
 export default function Dashboard() {
   const [optionList, setOptionList] = useState("");
 
@@ -21,6 +23,10 @@ export default function Dashboard() {
     switch (optionList) {
       case "create Post":
         return <CreatePost />;
+      case "settings":
+        return <Settings />;
+      case "help center":
+        return <HelpCenter />;
       default:
         return <Found />;
     }
@@ -45,11 +51,11 @@ export default function Dashboard() {
               <ol className="flex flex-col gap-1.5">
                 <li className="flex items-center gap-1.5">
                   <FaUsers />
-                  Employee
+                  Usuários
                 </li>
                 <li className="flex items-center gap-1.5">
                   <IoCalendarNumberOutline />
-                  Schedule
+                  Posts
                 </li>
                 <li className="flex items-center gap-1.5">
                   <FaUser />
@@ -111,11 +117,17 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-col gap-2">
             <ol className="flex flex-col gap-1.5">
-              <li className="flex items-center gap-1">
+              <li
+                className="flex items-center gap-1 hover:cursor-pointer"
+                onClick={() => setOptionList("settings")}
+              >
                 <IoSettingsOutline />
                 Settings
               </li>
-              <li className="flex items-center gap-1">
+              <li
+                className="flex items-center gap-1 hover:cursor-pointer"
+                onClick={() => setOptionList("help center")}
+              >
                 <BsQuestionLg />
                 Help Center
               </li>
