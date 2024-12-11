@@ -2,8 +2,6 @@ import { query, body, validationResult } from "express-validator";
 import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
 import commentaryModel from "../models/commentaryModel.js";
-import path from "node:path";
-import fs from "fs/promises";
 
 export const detailsPost = [
   query("postId")
@@ -279,7 +277,7 @@ export const createNewPost = [
     .isLength({ min: 50, max: 500 })
     .withMessage("O conteúdo deve ter no mínimo 30 caracteres")
     .bail(),
-  body("category").isString().withMessage("Defina uma categoria").bail(),
+  /*body("category").isString().withMessage("Defina uma categoria").bail(),
   body("level"),
   body("skills").isArray().isLength({ min: 3, max: 5 }).bail(),
   body("min")
@@ -294,7 +292,7 @@ export const createNewPost = [
     .isString()
     //.isLength({ min: 15 })
     .withMessage("Informe o seu número de contato")
-    .bail(),
+    .bail(),*/
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
