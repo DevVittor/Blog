@@ -26,7 +26,7 @@ export default function DetailsPost() {
 
       if (response.ok) {
         const convertJson = await response.json();
-        console.log(convertJson);
+        console.log("Details Post: ", convertJson);
         setPost(convertJson.details);
       }
     } catch (error) {
