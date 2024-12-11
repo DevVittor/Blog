@@ -223,6 +223,7 @@ export default function CreatePost() {
                 name="min"
                 value={formData.price.min}
                 placeholder="R$ xx"
+                onChange={handleData}
               />
             </label>
             <label className="flex flex-col gap-1.5" htmlFor="">
@@ -233,6 +234,7 @@ export default function CreatePost() {
                 name="max"
                 value={formData.price.max}
                 placeholder="R$ xx"
+                onChange={handleData}
               />
             </label>
           </div>
