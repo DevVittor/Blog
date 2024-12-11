@@ -36,7 +36,7 @@ export default function Home() {
         <meta name="description" content="Page Home" />
       </Helmet>
       <div className="flex justify-start items-center flex-col flex-1">
-        <div className="flex justify-start items-center flex-col gap-3 px-3 pb-3">
+        <div className="flex justify-start items-center flex-col gap-3 p-3">
           <div className="md:columns-4 columns-1 flex-wrap gap-2">
             {Array.isArray(posts) &&
               posts.map((item) => (
