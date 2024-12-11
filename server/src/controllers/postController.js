@@ -22,10 +22,11 @@ export const detailsPost = [
   async (req, res) => {
     const { postId } = req.query;
     try {
-      const post = await postModel.findById(postId);
-      /*.select(
-          "title content category level skills createAt price.min price.max contact author blocked"
-        );*/
+      const post = await postModel
+        .findById(postId)
+        .select(
+          "title content category level skills createdAt price.min price.max contact author blocked"
+        );
       if (!post) {
         return res
           .status(400)
