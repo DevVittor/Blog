@@ -17,6 +17,7 @@ import MyPosts from "./pages/MyPosts";
 import Support from "./pages/Support";
 import Feedback from "./pages/Feedback";
 import EditProfile from "./pages/EditProfile";
+import Register from "./pages/Register";
 
 export default function Main() {
   return (
@@ -37,6 +38,7 @@ export default function Main() {
           <Route path="/users" exact element={<Users />} />
           <Route path="/new" exact element={<CreatePost />} />
           <Route path="/login" exact element={<Login />} />
+          <Route path="/register" exact element={<Register />} />
           <Route path="*" element={<Found />} />
         </Route>
       </Routes>
