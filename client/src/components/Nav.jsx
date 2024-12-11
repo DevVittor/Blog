@@ -54,6 +54,9 @@ export default function Nav() {
           ) : (
             <ol className="flex items-center flex-wrap gap-1.5">
               <li>
+                <Link to="/register">Register</Link>
+              </li>
+              <li>
                 <Link to="/login">Login</Link>
               </li>
             </ol>
