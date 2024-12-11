@@ -26,8 +26,8 @@ app.use(
 );
 app.use(
   cors({
-    //origin: process.env.FRONT_URL,
-    origin: "*",
+    origin: process.env.FRONT_URL,
+    //origin: "*",
     credentials: true,
     optionsSuccessStatus: 200,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
