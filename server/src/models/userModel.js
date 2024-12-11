@@ -8,10 +8,6 @@ const userSchema = new mongoose.Schema(
         ref: "posts",
       },
     ],
-    avatar: {
-      type: String,
-      default: "picture_empty.webp",
-    },
     username: {
       type: String,
       required: true,

@@ -1,8 +1,5 @@
 import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
-import path from "node:path";
-import fs from "node:fs";
-import sharp from "sharp";
 import { body, query, validationResult } from "express-validator";
 import dotenv from "dotenv";
 dotenv.config();
@@ -131,37 +128,8 @@ export const registerNewUser = [
   },
   async (req, res) => {
     const { username, email, password } = req.body;
-    const avatar = req.file;
-
-    let filePath;
 
     try {
-      const pathFolder = path.join("src", "upload", "user");
-
-      if (avatar) {
-        // Verifica e cria a pasta se não existir
-        if (!fs.existsSync(pathFolder)) {
-          fs.mkdirSync(pathFolder, { recursive: true });
-        }
-        const nameFile = `${username.toLowerCase()}_${Date.now()}_${Math.floor(
-          Math.random() * 1e9
-        )}.webp`;
-
-        // Caminho completo do arquivo
-        filePath = path.join(nameFile);
-
-        // Processa e otimiza a imagem com Sharp
-        await sharp(avatar.buffer)
-          .resize(300, 300, {
-            fit: sharp.fit.cover, // Garante o corte proporcional
-          })
-          .toFormat("webp", { quality: 80 }) // Converte para WebP com qualidade 80
-          .toFile(`${pathFolder}/${nameFile}`); // Salva no diretório especificado
-      } else {
-        // Caminho para a foto padrão
-        filePath = "picture_empty.webp";
-      }
-
       const emailRegistered = await userModel.findOne({ email });
       if (emailRegistered) {
         return res.status(400).json({ error: "Esse email já foi cadastrado." });
@@ -170,7 +138,6 @@ export const registerNewUser = [
       const createPasswordWithHash = await bcrypt.hash(password, 10);
 
       const newUser = await userModel.create({
-        avatar: filePath,
         username,
         email,
         password: createPasswordWithHash,

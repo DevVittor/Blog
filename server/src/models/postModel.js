@@ -6,9 +6,6 @@ const postSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
     },
-    photos: {
-      type: [String],
-    },
     author: {
       type: String,
       required: true,
@@ -25,9 +22,29 @@ const postSchema = new mongoose.Schema(
       maxLenght: 500,
       required: true,
     },
-    categories: {
+    category: {
+      type: String,
+      required: true,
+    },
+    level: {
+      type: String,
+      default: "Todos",
+    },
+    skills: {
       type: [String],
-      enum: ["tecnologia", "economia", "esporte", "novela", "jogos"],
+      required: true,
+    },
+    price: {
+      min: {
+        type: Number,
+      },
+      max: {
+        type: Number,
+      },
+    },
+    contact: {
+      type: String,
+      required: true,
     },
     commentaryId: [
       {
@@ -38,16 +55,6 @@ const postSchema = new mongoose.Schema(
     edit: {
       type: Boolean,
       default: false,
-    },
-    likesUsers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-      },
-    ],
-    likes: {
-      type: Number,
-      default: 0,
     },
     reason: {
       type: String,

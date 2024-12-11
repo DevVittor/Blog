@@ -15,8 +15,6 @@ import router from "../routes/v1/index.js";
 import { registerAdmin } from "../utils/registerAdmin.js";
 const logPath = path.join("src", "logs", "access.log");
 const accessLogs = fs.createWriteStream(logPath, { flags: "a" });
-app.use("/api/v1/avatar", express.static("src/upload/user"));
-app.use("/api/v1/photos", express.static("src/upload/post"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());

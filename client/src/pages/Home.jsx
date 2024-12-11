@@ -14,6 +14,7 @@ export default function Home() {
     if (response.ok) {
       const convertJson = await response.json();
       setPosts(convertJson.list);
+      console.log(convertJson.list);
     }
   };
 
@@ -46,7 +47,7 @@ export default function Home() {
                     edit={item.edit}
                     title={item.title}
                     content={item.content}
-                    categories={item.categories}
+                    category={item.category}
                   />
                 </Link>
               ))}

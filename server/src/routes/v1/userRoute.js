@@ -1,10 +1,6 @@
 import { Router } from "express";
 const router = Router();
 
-import multer from "multer";
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
 import {
   listUser,
   detailsUser,
@@ -19,7 +15,7 @@ import {
 
 router.get("/list", listUser);
 router.get("/details", detailsUser);
-router.post("/register", upload.single("avatar"), registerNewUser);
+router.post("/register", registerNewUser);
 router.post("/login", login);
 router.post("/block", blockUser);
 router.post("/unblock", unblockUser);

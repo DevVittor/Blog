@@ -32,6 +32,7 @@ export default function Main() {
           <Route path="/support" exact element={<Support />} />
           <Route path="/edit/profile" exact element={<EditProfile />} />
           <Route path="/feedback" exact element={<Feedback />} />
+          <Route path="/card" exact element={<DetailsPost />} />
           <Route path="/dashboard" exact element={<Dashboard />} />
           <Route path="/users" exact element={<Users />} />
           <Route path="/new" exact element={<CreatePost />} />

@@ -4,7 +4,6 @@ import userModel from "../models/userModel.js";
 import commentaryModel from "../models/commentaryModel.js";
 import path from "node:path";
 import fs from "fs/promises";
-import sharp from "sharp";
 
 export const detailsPost = [
   query("postId")
@@ -59,7 +58,7 @@ export const allPost = [
       const posts = await postModel
         .find()
         .select(
-          "photos _id author title content categories commentaryId blocked edit createdAt updatedAt"
+          "_id author title content category commentaryId blocked edit createdAt updatedAt"
         );
       if (posts.length < 1) {
         return res
@@ -280,9 +279,21 @@ export const createNewPost = [
     .isLength({ min: 50, max: 500 })
     .withMessage("O conteúdo deve ter no mínimo 30 caracteres")
     .bail(),
-  body("categories")
-    .isArray({ min: 1, max: 3 })
-    .withMessage("Deve incluir pelo menos uma categoria")
+  body("category").isString().withMessage("Defina uma categoria").bail(),
+  body("level"),
+  body("skills").isArray().isLength({ min: 3, max: 5 }).bail(),
+  body("min")
+    .isInt()
+    .withMessage("Informe o valor minimo para o serviço")
+    .bail(),
+  body("max")
+    .isInt()
+    .withMessage("Informe o valor máximo para o serviço")
+    .bail(),
+  body("contact")
+    .isString()
+    //.isLength({ min: 15 })
+    .withMessage("Informe o seu número de contato")
     .bail(),
   (req, res, next) => {
     const errors = validationResult(req);
@@ -293,11 +304,8 @@ export const createNewPost = [
   },
   async (req, res) => {
     const { userId } = req.query;
-    const { title, content, categories } = req.body;
-    const photos = req.files;
-
-    const filePaths = []; // Armazena os caminhos das imagens processadas
-    const pathFolder = path.join("src", "upload", "post");
+    const { title, content, category, level, skills, min, max, contact } =
+      req.body;
 
     try {
       const user = await userModel.findById(userId);
@@ -320,30 +328,17 @@ export const createNewPost = [
           .json({ error: "Já existe um post com esse nome." });
       }
 
-      if (photos && photos.length > 0) {
-        for (const [index, photo] of photos.entries()) {
-          const author = user.username;
-          const nameFile = `${author.toLowerCase()}_${Date.now()}_${index}.webp`;
-
-          const filePath = path.join(pathFolder, nameFile);
-
-          // Processa e otimiza cada imagem com Sharp
-          await sharp(photo.buffer)
-            .resize({ width: 600, fit: "cover" })
-            .toFormat("webp", { quality: 80 }) // Converte para WebP com qualidade 80
-            .toFile(filePath);
-
-          filePaths.push(nameFile); // Adiciona o caminho processado à lista
-        }
-      }
-
       const newPost = await postModel.create({
         userId,
-        photos: filePaths,
         author: user.username,
         title,
         content,
-        categories,
+        category,
+        level,
+        skills,
+        min,
+        max,
+        contact,
       });
 
       await userModel.findByIdAndUpdate(
@@ -362,78 +357,6 @@ export const createNewPost = [
           "Não foi possível receber os dados necessários para criar um novo post",
         details: error.message,
       });
-    }
-  },
-];
-
-export const likePost = [
-  query("userId")
-    .notEmpty()
-    .withMessage("Não foi possível identificar o usuário")
-    .bail()
-    .isMongoId()
-    .withMessage("ID de usuário inválido"),
-  query("postId")
-    .notEmpty()
-    .isString()
-    .trim()
-    .withMessage("Não foi possível identificar o post")
-    .bail()
-    .isMongoId()
-    .withMessage("ID do post inválido"),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ error: errors.array() });
-    }
-    next();
-  },
-  async (req, res) => {
-    const { userId, postId } = req.query;
-
-    try {
-      const user = await userModel.findById(userId);
-      if (!user) {
-        return res
-          .status(400)
-          .json({ error: "Não foi possível localizar o usuário" });
-      }
-      if (user.blocked === true) {
-        return res.status(403).json({ error: "Usuário bloqueado" });
-      }
-
-      const post = await postModel.findById(postId);
-      if (!post) {
-        return res
-          .status(400)
-          .json({ error: "Não foi possível localizar o post" });
-      }
-      if (post.blocked === true) {
-        return res.status(403).json({ error: "Esse post está bloqueado" });
-      }
-
-      if (post.likesUsers.includes(userId)) {
-        await postModel.findByIdAndUpdate(
-          postId,
-          { $pull: { likesUsers: userId }, $inc: { likes: -1 } },
-          { new: true }
-        );
-        res.status(200).json({ msg: "Removi o gostei do post" });
-      } else {
-        await postModel.findByIdAndUpdate(
-          postId,
-          { $push: { likesUsers: userId }, $inc: { likes: 1 } },
-          { new: true }
-        );
-        res.status(200).json({ msg: "Gostei do post" });
-      }
-      res
-        .status(201)
-        .json({ msg: "Aqui está a quandidade de likes", likes: post.likes });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ error: "Não foi possível dar o like", details: error.message });
     }
   },
 ];
@@ -655,21 +578,6 @@ export const deletePost = [
           .json({ error: "Você não tem permissão para deletar esse post" });
       }
 
-      const pathFiles = path.join("src", "upload", "post");
-
-      if (myPost.photos && Array.isArray(myPost.photos)) {
-        for (const photo of myPost.photos) {
-          const filePath = path.join(pathFiles, photo);
-          try {
-            await fs.unlink(filePath); // Remove o arquivo de forma assíncrona
-          } catch (err) {
-            console.error(
-              `Erro ao deletar o arquivo: ${filePath}`,
-              err.message
-            );
-          }
-        }
-      }
       await postModel.findByIdAndDelete(postId);
       await userModel.findByIdAndUpdate(
         userId,

@@ -5,19 +5,61 @@ import { BiMessageDetail } from "react-icons/bi";
 import { GoPaperclip } from "react-icons/go";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { AiOutlineLike } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 export default function MenuUser() {
+  const [userId, setUserId] = useState("");
+  const [author, setAuthor] = useState("");
+  const [limit, setLimit] = useState(null);
   const [selected, setSelected] = useState("");
   const handleLogout = () => {
     // Remove o token do localStorage e atualiza o estado
     localStorage.removeItem("token");
     window.location.reload();
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decode = jwtDecode(token);
+
+      if (decode._id) {
+        setUserId(decode._id);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    handleAuthor();
+  }, [userId]);
+
+  const handleAuthor = async () => {
+    try {
+      const response = await fetch(
+        `https://blog-e1jn.onrender.com/api/v1/user/details?userId=${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const responseJson = response.json();
+        console.log(responseJson.user.author);
+        setAuthor(responseJson.user.author);
+        setLimit(responseJson.user.limit);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="absolute mt-3 top-full right-0 border border-zinc-200  rounded-md shadow-sm flex flex-col gap-2 max-w-[400px] md:p-3 p-2 md:w-[280px] w-[200px] bg-white z-10">
       <div className="md:hidden text-center bg-black p-1 rounded-sm text-zinc-100 font-medium">
-        <h3 className="text-sm font-medium">Vittor Fonseca Serra</h3>
+        <h3 className="text-sm font-medium">{author || "Usuário"}</h3>
       </div>
       <div className="">
         <ol className="flex flex-col gap-1 ">
@@ -122,7 +164,7 @@ export default function MenuUser() {
       <div className="flex justify-between items-center flex-wrap md:gap-1.5 gap-1">
         <button className="px-3 py-1 rounded-md bg-black font-bold text-zinc-100 flex-grow flex justify-center items-center gap-1">
           <LuPlus />
-          New Post(5)
+          New Post({limit || 0})
         </button>
         <button
           className="md:flex-grow-0 flex-grow px-3 py-1 rounded-md bg-red-500 font-bold text-zinc-100 flex justify-center items-center gap-1"
