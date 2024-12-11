@@ -7,7 +7,7 @@ export default function Register() {
     password: "",
   });
 
-  const loginUser = async (event) => {
+  const registerUser = async (event) => {
     event.preventDefault();
     try {
       const response = await fetch(
@@ -47,7 +47,7 @@ export default function Register() {
         <h2 className="text-4xl font-bold">Register User</h2>
         <form
           className="flex flex-col gap-2 p-3 border border-zinc-200 rounded-md"
-          onSubmit={loginUser}
+          onSubmit={registerUser}
         >
           <label className="flex flex-col gap-1.5" htmlFor="">
             <span className="font-medium">Username:</span>
