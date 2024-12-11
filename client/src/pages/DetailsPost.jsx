@@ -47,7 +47,7 @@ export default function DetailsPost() {
               title={post.title}
               content={post.content}
               category={post.category}
-              createdAt={post.createdAt}
+              createdAt={post.createdAt || "20/04/2024"}
             />
             <SendContact />
           </div>
@@ -75,14 +75,14 @@ export default function DetailsPost() {
                   </ol>
                 </div>
               )}
-              {post.price.min && post.price.max && post.contact && (
+              {/*
                 <div className="flex justify-between items-center gap-1.5">
                   <button>
-                    R$ {post.price.min} - R$ {post.price.max}
+                    R$ {post.price.min || 39} - R$ {post.price.max || 100}
                   </button>
                   <button>{post.contact}</button>
                 </div>
-              )}
+              */}
             </div>
             <hr />
             <div className="bg-zinc-50 border border-zinc-200 h-auto w-full rounded-md p-3">
