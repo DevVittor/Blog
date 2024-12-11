@@ -304,7 +304,7 @@ export const createNewPost = [
   },
   async (req, res) => {
     const { userId } = req.query;
-    const { title, content, category, level, skills, min, max, contact } =
+    const { title, content, category, level, skills, price, contact } =
       req.body;
 
     console.log("Body: ", req.body);
@@ -338,8 +338,7 @@ export const createNewPost = [
         category,
         level,
         skills,
-        min,
-        max,
+        price,
         contact,
       });
 
