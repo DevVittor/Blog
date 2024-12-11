@@ -6,7 +6,14 @@ export default function CreatePost() {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    categories: [],
+    category: "Web",
+    skill: ["JavaScript", "HTML5", "Css3"],
+    level: "Profissional",
+    price: {
+      min: 20,
+      max: 120,
+    },
+    contact: "(21) 99754-392",
   });
 
   useEffect(() => {
@@ -19,16 +26,6 @@ export default function CreatePost() {
       }
     }
   }, [userId]);
-
-  console.log(formData);
-
-  const categorieList = [
-    "tecnologia",
-    "economia",
-    "esporte",
-    "novela",
-    "jogos",
-  ];
 
   const handleDataPost = async (event) => {
     event.preventDefault();
@@ -55,23 +52,12 @@ export default function CreatePost() {
   };
 
   const handleData = (event) => {
-    const { name, value, options } = event.target;
+    const { name, value } = event.target;
 
-    if (name === "categories") {
-      const selectedCategories = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
-
-      setFormData((prevData) => ({
-        ...prevData,
-        categories: selectedCategories,
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -106,26 +92,6 @@ export default function CreatePost() {
               onChange={handleData}
               value={formData.content}
             ></textarea>
-          </label>
-          <label className="flex flex-col gap-1.5" htmlFor="">
-            <span className="font-medium text-lg">Categories:</span>
-            <select
-              className="focus:bg-zinc-50 transition-colors ease-in-out delay-100 border border-zinc-200 bg-white outline-none rounded-sm hover:cursor-pointer px-3 py-1"
-              onChange={handleData}
-              name="categories"
-              multiple
-              value={formData.categories}
-            >
-              <option value="" disabled hidden>
-                Qual a categoria ?
-              </option>
-              {categorieList &&
-                categorieList.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-            </select>
           </label>
           <input
             className="bg-black text-zinc-100 font-bold rounded-sm hover:cursor-pointer mt-2 px-3 py-1"
