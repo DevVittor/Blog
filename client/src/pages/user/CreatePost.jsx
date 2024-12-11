@@ -7,7 +7,7 @@ export default function CreatePost() {
     title: "",
     content: "",
     category: "Web",
-    skill: ["JavaScript", "HTML5", "Css3"],
+    skills: ["JavaScript", "HTML5", "Css3"],
     level: "Profissional",
     price: {
       min: 20,
@@ -19,13 +19,10 @@ export default function CreatePost() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      const decode = jwtDecode(token);
-      const decodeId = decode._id;
-      if (decodeId) {
-        setUserId(decodeId);
-      }
+      const decoded = jwtDecode(token);
+      setUserId(decoded._id);
     }
-  }, [userId]);
+  }, []);
 
   const handleDataPost = async (event) => {
     event.preventDefault();

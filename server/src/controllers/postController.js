@@ -268,13 +268,13 @@ export const createNewPost = [
   body("title")
     .notEmpty()
     .isString()
-    .isLength({ min: 30, max: 150 })
+    //.isLength({ min: 30, max: 150 })
     .withMessage("Preencha o campo título corretamente")
     .bail(),
   body("content")
     .notEmpty()
     .isString()
-    .isLength({ min: 50, max: 500 })
+    //.isLength({ min: 50, max: 500 })
     .withMessage("O conteúdo deve ter no mínimo 30 caracteres")
     .bail(),
   /*body("category").isString().withMessage("Defina uma categoria").bail(),
