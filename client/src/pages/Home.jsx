@@ -7,13 +7,17 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
 
   const allPost = async () => {
-    const response = await fetch(
-      "https://blog-e1jn.onrender.com/api/v1/post/all"
-    );
-    if (response.ok) {
-      const convertJson = await response.json();
-      setPosts(convertJson.list);
-      console.log(convertJson.list);
+    try {
+      const response = await fetch(
+        "https://blog-e1jn.onrender.com/api/v1/post/all"
+      );
+      if (response.ok) {
+        const convertJson = await response.json();
+        setPosts(convertJson.list);
+        console.log(convertJson.list);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
