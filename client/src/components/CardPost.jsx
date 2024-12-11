@@ -8,17 +8,7 @@ export default function CardPost({ author, edit, title, content, category }) {
       </div>
       <h2 className="text-2xl font-bold leading-7">{title}</h2>
       <p className="text-zinc-700 font-light leading-5">{content}</p>
-      <ol className="flex items-center gap-1.5 mt-1">
-        {category &&
-          category.map((item, index) => (
-            <li
-              className="px-3 py-1 text-sm rounded-sm font-medium bg-zinc-50 border border-zinc-200"
-              key={index}
-            >
-              {item}
-            </li>
-          ))}
-      </ol>
+      {category && <span>{category}</span>}
     </div>
   );
 }

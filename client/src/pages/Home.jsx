@@ -13,8 +13,12 @@ export default function Home() {
       );
       if (response.ok) {
         const convertJson = await response.json();
-        setPosts(convertJson.list);
-        console.log(convertJson.list);
+        if (Array.isArray(convertJson.list)) {
+          setPosts(convertJson.list);
+        } else {
+          console.error("Expected an array but received:", convertJson.list);
+          setPosts([]); // Defina como vazio caso a estrutura seja incorreta
+        }
       }
     } catch (error) {
       console.error(error);
@@ -34,7 +38,7 @@ export default function Home() {
       <div className="flex justify-start items-center flex-col flex-1">
         <div className="flex justify-start items-center flex-col gap-3 px-3 pb-3">
           <div className="md:columns-4 columns-1 flex-wrap gap-2">
-            {posts &&
+            {Array.isArray(posts) &&
               posts.map((item) => (
                 <Link to={`/post/${item._id}`} key={item._id}>
                   <CardPost
