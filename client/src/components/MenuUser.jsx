@@ -20,6 +20,10 @@ export default function MenuUser() {
   };
 
   useEffect(() => {
+    console.log("Carregando");
+  }, []);
+
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       const decode = jwtDecode(token);
@@ -46,8 +50,8 @@ export default function MenuUser() {
         }
       );
       if (response.ok) {
-        const responseJson = response.json();
-        console.log(responseJson.user.author);
+        const responseJson = await response.json();
+        console.log("Menu User: ", responseJson.user.author);
         setAuthor(responseJson.user.author);
         setLimit(responseJson.user.limit);
       }

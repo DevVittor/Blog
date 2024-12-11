@@ -76,9 +76,9 @@ export default function DetailsPost() {
               )}
               <div className="flex justify-between items-center gap-1.5">
                 <button>
-                  R$ {post.price?.min ?? 1} - R$ {post.price?.max ?? 10}
+                  R$ {post.price?.min} - R$ {post.price?.max}
                 </button>
-                <button>{post.contact}</button>
+                <button>{post.contact || "Sem contato"}</button>
               </div>
             </div>
             <hr />
