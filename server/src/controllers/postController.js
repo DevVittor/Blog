@@ -24,7 +24,9 @@ export const detailsPost = [
     try {
       const post = await postModel
         .findById(postId)
-        .select("title content category level skills createAt price.min price.max author blocked");
+        .select(
+          "title content category level skills createAt price.min price.max author blocked"
+        );
       if (!post) {
         return res
           .status(400)
@@ -304,6 +306,8 @@ export const createNewPost = [
     const { userId } = req.query;
     const { title, content, category, level, skills, min, max, contact } =
       req.body;
+
+    console.log("Body: ", req.body);
 
     try {
       const user = await userModel.findById(userId);

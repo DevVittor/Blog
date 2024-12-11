@@ -55,8 +55,7 @@ export default function DetailsPost() {
             <div className="">
               {post.author && (
                 <div className="flex flex-col gap-1 flex-wrap">
-                  <h2>{post.author}</h2>
-                  <span>Author</span>
+                  <h2>Author: {post.author}</h2>
                 </div>
               )}
               {post.category && post.skills && (
